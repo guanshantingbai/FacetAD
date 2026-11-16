@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pt
+*.npz
+*.so
+build/
+weights/
+third_party/
+data/
+.venv/
+outputs/
+*.tar.gz
+.ruff_cache/

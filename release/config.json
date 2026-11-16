@@ -1,0 +1,107 @@
+{
+  "clip_sha": "3035c92b350959924f9f00213499208652fc7ea050643e8b385c2dac08641f02",
+  "sources": {
+    "mvtec": {
+      "band": 1.6120320558547974,
+      "weights_sha256": "48920d0448b7d50e1cba5c529a0e2d12d5247c3a352e4dd3b26fc9ad8000377b"
+    },
+    "visa": {
+      "band": 1.2270256280899048,
+      "weights_sha256": "bd71b52bb457074f96e58c1ed3f600f212679f8a9aac6fab4186910cceca0616"
+    }
+  },
+  "datasets": {
+    "visa": {
+      "count": 2162,
+      "ordered_rows_sha256": "01f7beb6422300ba70fa76e170303625d679bd070e5bbb2c5789b2335b3ed0b8",
+      "packed_masks_sha256": "30c9857b093a5deb9b824af48e009de005efd398998b8af7934506f8d825228e"
+    },
+    "mvtec": {
+      "count": 1725,
+      "ordered_rows_sha256": "def336c60bda49a38c7f3622ce300e418e63f0d566713e36855a4ad0df73da73",
+      "packed_masks_sha256": "ae78678ed166f41009e548f595cdd26f667997287f9cff53cb4720454d682d48"
+    },
+    "mpdd": {
+      "count": 458,
+      "ordered_rows_sha256": "899011b1bd2de176320ea7178815a865e36d44500f59cc94682f1bcf732e5bc3",
+      "packed_masks_sha256": "ed0252cccd4545db09aea2d24260dce07c3aee6f9f2b0bd290cdb1420eea6e6f"
+    },
+    "btad": {
+      "count": 741,
+      "ordered_rows_sha256": "670eca3be48464fc7a8b45cf44898b48480abf041c078ef03af8050d00267003",
+      "packed_masks_sha256": "a0a3353619630caa556d0d7922e6b0fbcf23fb643a9bc9b40d34e8981b25a60c"
+    },
+    "ksdd2": {
+      "count": 1004,
+      "ordered_rows_sha256": "51dd0114e4fd2b6a3acd1d2b4e0f2ca179874b61d0a6cf7d7b48403e952152c4",
+      "packed_masks_sha256": "ea0a443fda9e5a949e180622a515f57b556ef360b45ce9dd0f0b90777e413975"
+    },
+    "dagm": {
+      "count": 8050,
+      "ordered_rows_sha256": "aaf65bd151fd6bff6d4248e7c36dcfcee61352116715e98147151d8677427fad",
+      "packed_masks_sha256": "07a1c8fbeca1e8386cb14074f805af10c9666a14c0dc2e4731b3e49998f9a08d"
+    },
+    "dtd": {
+      "count": 1304,
+      "ordered_rows_sha256": "8241e7c9b9ae7b6eb89f946d38cb747b706383b5faf51d0bc7bdc255fe76807e",
+      "packed_masks_sha256": "23e5976dde0697187199c444d5184aec0f08e14ecf6e5eb8b93ca89f3d3a6209"
+    },
+    "oct17": {
+      "count": 1000,
+      "ordered_rows_sha256": "0de1d394951dfb8b7af02455d82a121dfc043fc0aa863e7c42df52e2cedcd544"
+    },
+    "brainmri": {
+      "count": 253,
+      "ordered_rows_sha256": "46d96910770c4a85d275f0b29bf1a7dd62d6c1837e16c980e8b397a8584c60e3"
+    },
+    "brain_ad": {
+      "count": 3715,
+      "ordered_rows_sha256": "fa26bb5eeef88951e3bf0e10e1cf30aa76efbb9ba645bfdd9e597ddec7536415",
+      "packed_masks_sha256": "dcff067b305e990459094f81bdd4a465ea6c82eb392023e38d7e974bf6b77984"
+    },
+    "his": {
+      "count": 1997,
+      "ordered_rows_sha256": "a672e2ececf87cb5d141b83ab6afa5c716c0177f49b57e0a84fec24355bb62c1"
+    },
+    "cvc": {
+      "count": 612,
+      "ordered_rows_sha256": "c018c7e4c0e961b1205cc5f3d655c5d342e63a5c42f897e8f1b301f3d176a28d",
+      "packed_masks_sha256": "f4048e69934f58cd7b455da45e048e462c0037263ee2aea3e0066d917c1704ea"
+    },
+    "endo": {
+      "count": 200,
+      "ordered_rows_sha256": "b309c5ba93c8f06d97a11a4bb8746297d58e6ef6cb592d6a0791d08704a6e650",
+      "packed_masks_sha256": "3fbc7168a04c58c5e4db8344c69c5f62afc586dc6c6ebb240e2a24449d5d81bd"
+    },
+    "kvasir": {
+      "count": 1000,
+      "ordered_rows_sha256": "aadca1b2e7d9235ce63b0cf604bf0b0283bc6ee810b4dc34c2cc9effeb214cde",
+      "packed_masks_sha256": "fcf62fbc45006fb96b0b56181987061bbc874507ca78067c8e550fb5d01273f1"
+    },
+    "rsdd": {
+      "count": 774,
+      "ordered_rows_sha256": "a429ec5fd08e5af50da2ec950325900658900fb8220f1ad10c6d9c912f8ed3db",
+      "packed_masks_sha256": "09082c282ec4cc3fcbc9e667118d9883bf443d8255e29f7a459978f3fe035e5c"
+    },
+    "liver_ct": {
+      "count": 1493,
+      "ordered_rows_sha256": "1a6e7547e794b0e33d1f404cde4404301bb666e924b4dc81408a713a847eb719",
+      "packed_masks_sha256": "01026790638a6a3c280233617cd995dfebe17847520854a0c2da7915445089ef"
+    },
+    "retina_oct": {
+      "count": 1805,
+      "ordered_rows_sha256": "8373dac3e5341c5a18910635fcc45954ae6759affa1c97feee902af4ac61b0d1",
+      "packed_masks_sha256": "99cf96da5a1bc8b9bed4330635478ddb9334d085d41d47617aa179a6458b6768"
+    },
+    "colon_db": {
+      "count": 380,
+      "ordered_rows_sha256": "de0afcad171e814251cc0a73cde39ecc783fdcf7847c5a3b61dbbcb15121ec78",
+      "packed_masks_sha256": "4134f12dd8cb1b09adad20444ec548f7cccac52e95ccb24b0950707e5456382a"
+    },
+    "cvc300": {
+      "count": 60,
+      "ordered_rows_sha256": "6670f3e9b5e3958f5295716e1286821f914c65a53ac32f19957477c93cbddada",
+      "packed_masks_sha256": "c3b2c8170ba47243ff0c98559de27ce1a87a7268a167c8a826267d75c5d10c8f"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "unique_datasets": 19,
+  "classes": 71,
+  "metrics": [
+    "image_auc",
+    "image_ap",
+    "tpr",
+    "pixel_auc",
+    "pixel_ap",
+    "aupro"
+  ],
+  "maximum_absolute_difference_percentage_points": 2.842170943040401e-14
+}

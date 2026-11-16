@@ -1,0 +1,12 @@
+# Python 3.11. Install the CUDA builds of torch and torchvision as shown in README.
+numpy==2.4.4
+scipy==1.17.1
+scikit-learn==1.9.0
+Pillow==12.2.0
+opencv-python-headless==5.0.0.93
+ftfy==6.3.1
+regex==2026.7.19
+tqdm==4.70.0
+packaging==26.3
+setuptools==78.1.0
+thop==0.1.1.post2209072238

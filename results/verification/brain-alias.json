@@ -1,0 +1,8 @@
+{
+  "images_per_manifest": 3715,
+  "image_sha_sets_identical": true,
+  "label_disagreements": 0,
+  "mask_file_hash_list_disagreements": 640,
+  "packed_518x518_mask_disagreements": 0,
+  "join_key": "image SHA-256"
+}
