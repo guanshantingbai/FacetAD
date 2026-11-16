@@ -11,3 +11,8 @@ data/
 outputs/
 *.tar.gz
 .ruff_cache/
+
+/work/
+/reports/r1-paper-evidence/FIG_*.png
+/reports/r1-paper-evidence/FIG_*.pdf
+/reports/r1-paper-evidence/private/
