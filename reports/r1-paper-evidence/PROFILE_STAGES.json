@@ -1,0 +1,74 @@
+{
+  "gpu": "NVIDIA GeForce RTX 3090",
+  "precision": {
+    "torch.float32": 428756225
+  },
+  "observations": [
+    {
+      "batch": 1,
+      "method": "static",
+      "absolute_stage_peak_bytes": {
+        "pre": 1778435072,
+        "encoder": 2175507456,
+        "reader": 1775221248,
+        "post": 1781506560
+      },
+      "max_live_vs_official_image_abs": null
+    },
+    {
+      "batch": 1,
+      "method": "single",
+      "absolute_stage_peak_bytes": {
+        "pre": 1793547264,
+        "encoder": 2190596096,
+        "reader": 1807330816,
+        "post": 1814473216
+      },
+      "max_live_vs_official_image_abs": 4.705013623151899e-08
+    },
+    {
+      "batch": 1,
+      "method": "ensemble",
+      "absolute_stage_peak_bytes": {
+        "pre": 1817640960,
+        "encoder": 2214313984,
+        "reader": 1831078912,
+        "post": 1841645056
+      },
+      "max_live_vs_official_image_abs": 1.1923788323375817e-07
+    },
+    {
+      "batch": 8,
+      "method": "static",
+      "absolute_stage_peak_bytes": {
+        "pre": 1790644736,
+        "encoder": 4987808256,
+        "reader": 1824360960,
+        "post": 1850077184
+      },
+      "max_live_vs_official_image_abs": null
+    },
+    {
+      "batch": 8,
+      "method": "single",
+      "absolute_stage_peak_bytes": {
+        "pre": 1802670592,
+        "encoder": 4999834112,
+        "reader": 1972119040,
+        "post": 1999703552
+      },
+      "max_live_vs_official_image_abs": 1.4185581409531522e-07
+    },
+    {
+      "batch": 8,
+      "method": "ensemble",
+      "absolute_stage_peak_bytes": {
+        "pre": 1826388480,
+        "encoder": 5023552000,
+        "reader": 1995836928,
+        "post": 2040594944
+      },
+      "max_live_vs_official_image_abs": 1.1991802983946087e-07
+    }
+  ]
+}

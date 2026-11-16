@@ -1,0 +1,4 @@
+dataset,category,id,index,A,H,AH,event,priority,reason
+mvtec,transistor,transistor/test/cut_lead/008.png,1493,0.42188686691410754,0.4100449660526736,0.42200840051974814,excluded,0.00012153360564060023,H fails to improve
+mvtec,tile,tile/test/rough/004.png,1342,0.467388660420038,0.3370721265392405,0.4550155076791454,excluded,-0.012373152740892623,H fails to improve; fusion fails to improve
+mvtec,transistor,transistor/test/cut_lead/001.png,1486,0.493968971114564,0.5143454242682303,0.49225830610951105,excluded,-0.0017106650050529582,fusion fails to improve

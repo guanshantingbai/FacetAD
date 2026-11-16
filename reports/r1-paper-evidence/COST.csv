@@ -1,0 +1,165 @@
+section,method,source,seed,batch,metric,value,unit
+parameters,shared CLIP,,,,weight-loaded frozen incl text,427944193,parameters
+parameters,shared CLIP,,,,visual only,304293888,parameters
+disk,shared CLIP,,,,release archive size,934088680,bytes
+source cache,one-time visual encoding,visa,,,wall_seconds,255.90525273299136,s
+source cache,one-time visual encoding,visa,,,cuda_peak_allocated_bytes,3354855936,bytes
+disk,three-member release,visa,,,source package,35584579,bytes
+fit,A,visa,111,,fit time,576.2357456684113,s
+fit,A,visa,111,,one GPU allocation,0.16006548490789202,GPU h
+fit,A,visa,111,,peak allocated,7106809344,bytes
+fit,A,visa,111,,archived checkpoint size,22638336,bytes
+fit,H,visa,111,,fit time,653.2055857181549,s
+fit,H,visa,111,,one GPU allocation,0.1814459960328208,GPU h
+fit,H,visa,111,,peak allocated,7144108544,bytes
+fit,H,visa,111,,archived checkpoint size,22663991,bytes
+fit,Dynamic,visa,111,,fit time,91.61666250228882,s
+fit,Dynamic,visa,111,,one GPU allocation,0.02544907291730245,GPU h
+fit,Dynamic,visa,111,,peak allocated,5420687360,bytes
+fit,Dynamic,visa,111,,archived checkpoint size,11837467,bytes
+fit,A,visa,222,,fit time,581.9210121631622,s
+fit,A,visa,222,,one GPU allocation,0.1616447256008784,GPU h
+fit,A,visa,222,,peak allocated,7106809344,bytes
+fit,A,visa,222,,archived checkpoint size,22638336,bytes
+fit,H,visa,222,,fit time,656.6737842559814,s
+fit,H,visa,222,,one GPU allocation,0.1824093845155504,GPU h
+fit,H,visa,222,,peak allocated,7144108544,bytes
+fit,H,visa,222,,archived checkpoint size,22663991,bytes
+fit,Dynamic,visa,222,,fit time,91.23070788383484,s
+fit,Dynamic,visa,222,,one GPU allocation,0.025341863301065234,GPU h
+fit,Dynamic,visa,222,,peak allocated,5421518848,bytes
+fit,Dynamic,visa,222,,archived checkpoint size,11837467,bytes
+fit,A,visa,333,,fit time,569.5726451873779,s
+fit,A,visa,333,,one GPU allocation,0.15821462366316053,GPU h
+fit,A,visa,333,,peak allocated,7106809344,bytes
+fit,A,visa,333,,archived checkpoint size,22638336,bytes
+fit,H,visa,333,,fit time,647.254903793335,s
+fit,H,visa,333,,one GPU allocation,0.17979302883148193,GPU h
+fit,H,visa,333,,peak allocated,7144108544,bytes
+fit,H,visa,333,,archived checkpoint size,22663991,bytes
+fit,Dynamic,visa,333,,fit time,90.48027634620667,s
+fit,Dynamic,visa,333,,one GPU allocation,0.02513341009616852,GPU h
+fit,Dynamic,visa,333,,peak allocated,5421518848,bytes
+fit,Dynamic,visa,333,,archived checkpoint size,11837467,bytes
+source cache,one-time visual encoding,mvtec,,,wall_seconds,217.6901599010016,s
+source cache,one-time visual encoding,mvtec,,,cuda_peak_allocated_bytes,3354620416,bytes
+disk,three-member release,mvtec,,,source package,35584630,bytes
+fit,A,mvtec,111,,fit time,423.74421977996826,s
+fit,A,mvtec,111,,one GPU allocation,0.11770672771665786,GPU h
+fit,A,mvtec,111,,peak allocated,6067536896,bytes
+fit,A,mvtec,111,,archived checkpoint size,22638336,bytes
+fit,H,mvtec,111,,fit time,637.7954592704773,s
+fit,H,mvtec,111,,one GPU allocation,0.17716540535291037,GPU h
+fit,H,mvtec,111,,peak allocated,6104628224,bytes
+fit,H,mvtec,111,,archived checkpoint size,22663991,bytes
+fit,Dynamic,mvtec,111,,fit time,72.9468879699707,s
+fit,Dynamic,mvtec,111,,one GPU allocation,0.020263024436102974,GPU h
+fit,Dynamic,mvtec,111,,peak allocated,4378332160,bytes
+fit,Dynamic,mvtec,111,,archived checkpoint size,11837467,bytes
+fit,A,mvtec,222,,fit time,427.7741415500641,s
+fit,A,mvtec,222,,one GPU allocation,0.11882615043057336,GPU h
+fit,A,mvtec,222,,peak allocated,6067536896,bytes
+fit,A,mvtec,222,,archived checkpoint size,22638336,bytes
+fit,H,mvtec,222,,fit time,506.6412236690521,s
+fit,H,mvtec,222,,one GPU allocation,0.14073367324140337,GPU h
+fit,H,mvtec,222,,peak allocated,6104628224,bytes
+fit,H,mvtec,222,,archived checkpoint size,22663991,bytes
+fit,Dynamic,mvtec,222,,fit time,73.22083044052124,s
+fit,Dynamic,mvtec,222,,one GPU allocation,0.020339119566811455,GPU h
+fit,Dynamic,mvtec,222,,peak allocated,4378332160,bytes
+fit,Dynamic,mvtec,222,,archived checkpoint size,11837467,bytes
+fit,A,mvtec,333,,fit time,427.26846528053284,s
+fit,A,mvtec,333,,one GPU allocation,0.11868568480014802,GPU h
+fit,A,mvtec,333,,peak allocated,6067536896,bytes
+fit,A,mvtec,333,,archived checkpoint size,22638336,bytes
+fit,H,mvtec,333,,fit time,502.9057900905609,s
+fit,H,mvtec,333,,one GPU allocation,0.1396960528029336,GPU h
+fit,H,mvtec,333,,peak allocated,6104628224,bytes
+fit,H,mvtec,333,,archived checkpoint size,22663991,bytes
+fit,Dynamic,mvtec,333,,fit time,73.89432716369629,s
+fit,Dynamic,mvtec,333,,one GPU allocation,0.020526201989915636,GPU h
+fit,Dynamic,mvtec,333,,peak allocated,4378332160,bytes
+fit,Dynamic,mvtec,333,,archived checkpoint size,11837467,bytes
+parameters,prompt effective,,,,count,43008,parameters
+parameters,prompt incl unused projections,,,,count,5555200,parameters
+parameters,H,,,,count,6155,parameters
+parameters,Dynamic,,,,count,2956800,parameters
+parameters,one member distinct effective learned parameters,,,,count,3005963,parameters
+parameters,one member staged effective parameter slots,,,,count,3048971,parameters
+parameters,one member deployed readout incl baked text,,,,count,2964491,parameters
+parameters,one member deployed CLIP plus readout,,,,count,431720716,parameters
+parameters,three members deployed CLIP plus readouts,,,,count,437649698,parameters
+parameters,three members shared backbone,,,,count,428756225,parameters
+parameters,deployment updated parameters,,,,count,0,parameters
+compute,static,,,,counted MACs incl shared encoder,589002183512,MAC/image
+compute,static,,,,additional vs single static,0,MAC/image
+compute,single,,,,counted MACs incl shared encoder,590666392792,MAC/image
+compute,single,,,,additional vs single static,1664209280,MAC/image
+compute,ensemble,,,,counted MACs incl shared encoder,594017308296,MAC/image
+compute,ensemble,,,,additional vs single static,5015124784,MAC/image
+inference,static,,,1,pre median,42.170705,ms/batch
+inference,static,,,1,encoder median,114.3780275,ms/batch
+inference,static,,,1,reader median,0.7033085,ms/batch
+inference,static,,,1,post median,2.038666,ms/batch
+inference,static,,,1,forward median,115.14219750000001,ms/batch
+inference,static,,,1,e2e median,159.313427,ms/batch
+inference,static,,,1,peak allocated,2179830272,bytes
+inference,single,,,1,pre median,41.235213,ms/batch
+inference,single,,,1,encoder median,114.3829185,ms/batch
+inference,single,,,1,reader median,3.4077325,ms/batch
+inference,single,,,1,post median,8.950001,ms/batch
+inference,single,,,1,forward median,117.8189055,ms/batch
+inference,single,,,1,e2e median,168.2884335,ms/batch
+inference,single,,,1,peak allocated,2191488000,bytes
+inference,ensemble,,,1,pre median,42.052437499999996,ms/batch
+inference,ensemble,,,1,encoder median,114.4362165,ms/batch
+inference,ensemble,,,1,reader median,9.5584905,ms/batch
+inference,ensemble,,,1,post median,15.435317999999999,ms/batch
+inference,ensemble,,,1,forward median,124.121831,ms/batch
+inference,ensemble,,,1,e2e median,182.4030865,ms/batch
+inference,ensemble,,,1,peak allocated,2216461824,bytes
+inference,static,,,8,pre median,331.3222055,ms/batch
+inference,static,,,8,encoder median,871.1196835000001,ms/batch
+inference,static,,,8,reader median,0.896887,ms/batch
+inference,static,,,8,post median,11.8714355,ms/batch
+inference,static,,,8,forward median,872.0397780000001,ms/batch
+inference,static,,,8,e2e median,1215.789477,ms/batch
+inference,static,,,8,peak allocated,5056612864,bytes
+inference,single,,,8,pre median,329.47897950000004,ms/batch
+inference,single,,,8,encoder median,872.5084655,ms/batch
+inference,single,,,8,reader median,14.8397945,ms/batch
+inference,single,,,8,post median,54.60566300000001,ms/batch
+inference,single,,,8,forward median,887.4733994999999,ms/batch
+inference,single,,,8,e2e median,1273.1217745,ms/batch
+inference,single,,,8,peak allocated,5068862976,bytes
+inference,ensemble,,,8,pre median,330.9455715,ms/batch
+inference,ensemble,,,8,encoder median,871.5286755,ms/batch
+inference,ensemble,,,8,reader median,41.992707499999995,ms/batch
+inference,ensemble,,,8,post median,81.54987249999999,ms/batch
+inference,ensemble,,,8,forward median,913.6612635,ms/batch
+inference,ensemble,,,8,e2e median,1326.4151434999999,ms/batch
+inference,ensemble,,,8,peak allocated,5093277696,bytes
+stage memory,static,,,1,pre absolute peak allocated,1778435072,bytes
+stage memory,static,,,1,encoder absolute peak allocated,2175507456,bytes
+stage memory,static,,,1,reader absolute peak allocated,1775221248,bytes
+stage memory,static,,,1,post absolute peak allocated,1781506560,bytes
+stage memory,single,,,1,pre absolute peak allocated,1793547264,bytes
+stage memory,single,,,1,encoder absolute peak allocated,2190596096,bytes
+stage memory,single,,,1,reader absolute peak allocated,1807330816,bytes
+stage memory,single,,,1,post absolute peak allocated,1814473216,bytes
+stage memory,ensemble,,,1,pre absolute peak allocated,1817640960,bytes
+stage memory,ensemble,,,1,encoder absolute peak allocated,2214313984,bytes
+stage memory,ensemble,,,1,reader absolute peak allocated,1831078912,bytes
+stage memory,ensemble,,,1,post absolute peak allocated,1841645056,bytes
+stage memory,static,,,8,pre absolute peak allocated,1790644736,bytes
+stage memory,static,,,8,encoder absolute peak allocated,4987808256,bytes
+stage memory,static,,,8,reader absolute peak allocated,1824360960,bytes
+stage memory,static,,,8,post absolute peak allocated,1850077184,bytes
+stage memory,single,,,8,pre absolute peak allocated,1802670592,bytes
+stage memory,single,,,8,encoder absolute peak allocated,4999834112,bytes
+stage memory,single,,,8,reader absolute peak allocated,1972119040,bytes
+stage memory,single,,,8,post absolute peak allocated,1999703552,bytes
+stage memory,ensemble,,,8,pre absolute peak allocated,1826388480,bytes
+stage memory,ensemble,,,8,encoder absolute peak allocated,5023552000,bytes
+stage memory,ensemble,,,8,reader absolute peak allocated,1995836928,bytes
+stage memory,ensemble,,,8,post absolute peak allocated,2040594944,bytes

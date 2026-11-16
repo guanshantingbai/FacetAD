@@ -9,6 +9,8 @@ import torch
 
 @torch.inference_mode()
 def run():
+    rt.configure()
+    rt.deterministic()
     primary = [r for n in TARGETS for r in read(WORK / n / "case_pool.csv")]
     eligible = [r for r in primary if priority(r)["miss"] is not None]
     if len({r["dataset"] for r in eligible}) >= 2:
@@ -30,7 +32,8 @@ def run():
                 ]
                 if not sel:
                     continue
-                maps = [rt.maps(g[ids, 0]) for g in grids]
+                member_batches = [g[ids] for g in grids]
+                maps = [rt.maps(v[:, 0]) for v in member_batches]
                 a = torch.stack(maps).mean(0).cpu().numpy()
                 survivors = []
                 for k in sel:
@@ -51,7 +54,7 @@ def run():
                     if auc <= 0.5:
                         survivors.append((k, row, m))
                 if survivors:
-                    hs = [rt.maps(g[ids, 1]) for g in grids]
+                    hs = [rt.maps(v[:, 1]) for v in member_batches]
                     h = torch.stack(hs).mean(0).cpu().numpy()
                     ah = (
                         torch.stack([0.5 * (v + w) for v, w in zip(maps, hs)])

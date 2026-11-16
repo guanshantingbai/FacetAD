@@ -79,7 +79,6 @@ def run():
     stages = json.loads((OUT / "PROFILE_STAGES.json").read_text())
     e = profile["environment"]
     timing = read(OUT / "COST.csv")
-    s = read(OUT / "SEED_RESULTS.csv")
     err = read(OUT / "ERROR_ANALYSIS.csv")
 
     def pixel(n, b, a):
@@ -89,9 +88,6 @@ def run():
             if (r["dataset"], r["category"], r["before"], r["after"])
             == (n, "MACRO", b, a)
         )
-
-    def get(n, m):
-        return next(r for r in s if (r["dataset"], r["model"]) == (n, m))
 
     def ms(mode, b, metric):
         return float(
@@ -116,7 +112,7 @@ def run():
 
     diffs = read(OUT / "exact_domain_differences.csv")
 
-    def exact(n, q, m):
+    def exact(n, m):
         return float(
             next(
                 r[m + "_pp"]
@@ -137,11 +133,11 @@ def run():
     for title, vals in [
         (
             "完整部署中恢复 H 残余，正式 Pixel AP Δ（pp）",
-            [exact(n, "A4", "pixel_ap") for n in TARGETS],
+            [exact(n, "pixel_ap") for n in TARGETS],
         ),
         (
             "完整部署中恢复 H 残余，正式 Pixel AUROC Δ（pp）",
-            [exact(n, "A4", "pixel_auc") for n in TARGETS],
+            [exact(n, "pixel_auc") for n in TARGETS],
         ),
         (
             "A/H 挽回 A→H 损失的排序比例（类等权，抽样 %）",
@@ -236,7 +232,7 @@ Base: origin/main bd38e7b2d3d9768318f0b5dc99f5f350bfefa0b4 (R1 v1.0.0). Independ
 
 * The official replay of 14 core datasets agrees with the published class-level scores for all five requested seed metrics. Maximum difference {gate["max_core_class_error_pp"]:.12g} pp. Three-member probabilities and full-resolution maps are combined before official classwise scoring. Image and pixel tasks each have 11 valid domains. Release MVTec 93.897/91.513, VisA 83.747/95.381 and core 86.300/93.781 (Pixel AP 46.709) pass the rounded gates. Independent clean-environment replay outputs were reused for this check.
 * All 18 final epoch-15 training checkpoints were SHA-checked against their receipts and the earlier ablation audit. Packaged H/gate tensors and text match the corresponding trained state. A and H prompt tensors and A/H/D effective text are identical within each source and seed. CLIP SHA and both package SHAs are verified. Only VisA targets use MVTec-trained weights; other targets use VisA-trained weights.
-* 42 official member score files, original row-order digests, packed mask hashes and frozen intervention files are inventoried. Individual image metrics were recomputed from official scores. Individual pixel values use {gate["pixel_sources"]} archived class/member exact evaluator outputs for the same color-guided rule. Sampled pixel rankings and qualitative heatmaps were freshly recomputed from frozen member grids on MVTec/VisA/DAGM. For each retained primary/secondary example fresh heatmap AUC matched its saved ranking within 1e-12. Anomaly scores in fig_dynamic_pairs.csv are ensemble probabilities. Delta margins there are differences between ensemble logits; a member-level raw margin is a different quantity.
+* 42 official member score files, original row-order digests, packed mask hashes and frozen intervention files are inventoried. Individual image metrics were recomputed from official scores. Individual pixel values use {gate["pixel_sources"]} archived class/member exact evaluator outputs for the same color-guided rule. Sampled pixel rankings and qualitative heatmaps were freshly recomputed from frozen member grids on MVTec/VisA/DAGM. For each retained primary/secondary example fresh heatmap AUC matched its saved ranking within 1e-12. In the secondary screen the first draft materialized a contiguous one-channel array before scoring. A rejected example differed by 3.13e-11 in AUROC. Replaying with the release two-channel batch and channel slice recovered the exact displayed result. Anomaly scores in fig_dynamic_pairs.csv are ensemble probabilities. Delta margins there are differences between ensemble logits; a member-level raw margin is a different quantity.
 * Sampling units: exactly 100,000 pixel pairs/class × 37 classes; exact enumeration of all same-class image pairs on 11 datasets. ERROR_ANALYSIS gives both changes of ranking and exact domain-level AUROC differences where a matching frozen intervention exists. Pixel Monte Carlo errors quantify sampling of pairs on fixed queries. They do not cover new patients, images or training seeds.
 * Figure A qualified counts: {dict(counts)}. The native-miss recovery criterion was met by just one of 3,507 nonempty-mask images. All three other below-chance A cases failed at least one recovery condition and are shown on the exclusions page. The 2–4 positive-example goal for this phenomenon cannot be met with these data. The primary screen is stored in localization_screened.csv. A secondary native-miss search, if used, preserves the original candidates and limits itself to fulfilling the requested number of illustrations. The archive contains {dcount:,} qualified Dynamic event/pair records, including orthogonal recoveries which can overlap the corrected category. Relative IDs and industrial pair scores are supplied in the compact public CSVs. Real-image figures and the complete pair list are withheld from Git pending redistribution clearance.
 * Profiling: {e["gpu"]}, driver {e["driver"]}, PyTorch {e["torch"]}, CUDA {e["cuda"]}. 900 timed batches. TF32 disabled, deterministic, frozen visual tensors and official patch half round-trip. PROFILE_STAGES.json separately contains absolute stage peaks and the max live-vs-cached image difference on the eight timing queries ({maxdelta:.3g}); these checks include live encoding and batch-size effects, while reported paper scores use the official replay. Parameter and disk accounting uses loaded tensors and existing artifacts. Historical training times are logged fit wall-times. Initial source cache construction is recorded separately. System setup, queueing and standalone calibration times are unavailable.

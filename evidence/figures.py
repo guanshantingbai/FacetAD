@@ -174,7 +174,14 @@ def panels(n, rows):
         gt = packed_mask(mask[idx]).reshape(518, 518)
         for name, v in zip(("A", "H", "Hoff", "AH", "Final"), scores):
             if name in r:
-                assert abs(rank(v, gt, ~gt) - float(r[name])) < 1e-12
+                observed = rank(v, gt, ~gt)
+                assert abs(observed - float(r[name])) < 1e-12, (
+                    n,
+                    r["id"],
+                    name,
+                    observed,
+                    r[name],
+                )
         output[idx] = [ims[i], gt, *scores]
     return output
 

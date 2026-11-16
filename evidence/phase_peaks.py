@@ -2,7 +2,7 @@
 
 import gc
 from common import np, rt, OUT, SEEDS, root, jsonout, data, rgb
-from profile_cost import torch
+import torch
 
 
 @torch.inference_mode()
