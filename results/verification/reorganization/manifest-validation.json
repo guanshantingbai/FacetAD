@@ -1,0 +1,16 @@
+{
+  "mvtec": {
+    "generated": 1725,
+    "historical": 1725,
+    "same_image_label_mask_set": true,
+    "extra": 0,
+    "missing": 0
+  },
+  "visa": {
+    "generated": 2162,
+    "historical": 2162,
+    "same_image_label_mask_set": true,
+    "extra": 0,
+    "missing": 0
+  }
+}

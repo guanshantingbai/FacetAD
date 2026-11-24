@@ -5,7 +5,7 @@ from functools import lru_cache
 
 import numpy as np
 import torch
-from runtime import KERNELS
+from .runtime import KERNELS
 from scipy.ndimage import label
 from sklearn.metrics import average_precision_score, roc_auc_score, roc_curve
 

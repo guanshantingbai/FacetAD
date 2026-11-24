@@ -1,0 +1,26 @@
+{
+  "mvtec": {
+    "cached_images": 8,
+    "raw_images": 1,
+    "evaluation_subset_images": 4,
+    "max_abs": {
+      "cached_probability": 0.0,
+      "cached_heat": 0.0,
+      "raw_probability": 0.0,
+      "raw_heat": 0.0
+    },
+    "six_metrics_equal": true
+  },
+  "visa": {
+    "cached_images": 8,
+    "raw_images": 1,
+    "evaluation_subset_images": 4,
+    "max_abs": {
+      "cached_probability": 0.0,
+      "cached_heat": 0.0,
+      "raw_probability": 0.0,
+      "raw_heat": 0.0
+    },
+    "six_metrics_equal": true
+  }
+}

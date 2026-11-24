@@ -1,22 +1,24 @@
-# R1 for zero-shot anomaly detection
+# FacetAD: reproducing the released model
 
-R1 scores an image and localizes defects with one frozen CLIP ViT-L/14@336px visual forward pass. Three readouts share the same CLS and layer-24 patch tokens. Each member combines static and residual patch scores with an image-conditioned abnormal text prototype. The final image score averages the three probabilities. The final heatmap averages the members' color-guided, full-resolution probability maps.
+FacetAD (called **R1** in the original release) detects and localizes anomalies with a frozen CLIP visual encoder, complementary local readout, and image-conditioned prototype correction. Three members share **one visual forward pass**. This repository reproduces **inference and evaluation of the released checkpoints**; it does not currently provide an end-to-end training recipe.
 
 | Evaluation | Image AUROC / AP (%) | Pixel AUROC / AP (%) |
 |---|---:|---:|
-| MVTec AD | **93.897 / 97.216** | **91.513 / 40.118** |
-| VisA | **83.747 / 86.714** | **95.381 / 25.079** |
-| Original benchmark, 11 eligible domains per task | **86.300 / 89.062** | **93.781 / 46.709** |
+| MVTec AD | 93.897 / 97.216 | 91.513 / 40.118 |
+| VisA | 83.747 / 86.714 | 95.381 / 25.079 |
+| Original benchmark, 11 eligible domains per task | 86.300 / 89.062 | 93.781 / 46.709 |
 
-[Image-level comparisons](results/image_comparison.md) · [Pixel-level comparisons](results/pixel_comparison.md) · [Per-dataset results](results/r1_metrics.csv) · [Per-class results](results/r1_per_class.csv)
+[Image comparisons](results/image_comparison.md) · [Pixel comparisons](results/pixel_comparison.md) · [Exact dataset results](results/r1_metrics.csv) · [Per-class results](results/r1_per_class.csv)
 
-## Installation
+## 1. Install
 
-Use Linux, Python 3.11, an NVIDIA GPU and a CUDA toolkit with `nvcc`. The reference environment uses an RTX 3090, CUDA 12.8 and PyTorch 2.11.0. Run these commands from the extracted repository root.
+Use Linux, Python 3.11, an NVIDIA GPU and a CUDA toolkit containing `nvcc`. The reference hardware is an RTX 3090 (24 GB), with CUDA 12.8 and PyTorch 2.11.0. Run commands from the repository root.
 
-```sh
+```bash
+git clone https://github.com/guanshantingbai/readout-transfer-pilot.git
+cd readout-transfer-pilot
 python3.11 -m venv .venv
-. .venv/bin/activate
+source .venv/bin/activate
 python -m pip install --index-url https://download.pytorch.org/whl/cu128 torch==2.11.0 torchvision==0.26.0
 python -m pip install -r requirements.txt
 
@@ -25,56 +27,85 @@ git -C third_party/AnomalyCLIP checkout --detach 3911738c0867544f545a076ad78f3f1
 make kernels CUDA_ARCH=sm_86
 ```
 
-For another GPU, set `CUDA_ARCH` to its compute capability. `NVCC=/path/to/nvcc` selects the compiler. Both the Gaussian filter and the exact pixel-metric kernel are built locally.
+For another GPU, change `CUDA_ARCH` to its compute capability. If needed, pass `NVCC=/path/to/nvcc` to `make`. The two evaluation/inference operators are built from `kernels/`; no server-specific binaries are required.
 
-## Weights and first prediction
+## 2. Download weights and set paths
 
-Download the [R1 reader weights (61 MiB)](https://github.com/guanshantingbai/readout-transfer-pilot/releases/download/v1.0.0/r1-readers.tar.gz). The combined distribution already contains the two files under `weights/`. For a source-only checkout, extract the companion archive at the repository root.
-
-```sh
+```bash
+curl -fL -o r1-readers.tar.gz https://github.com/guanshantingbai/readout-transfer-pilot/releases/download/v1.0.0/r1-readers.tar.gz
 echo 'c97308b2af55e41736a0ab167a206d709cd04df96e5760e25af4cf66770eab2e  r1-readers.tar.gz' | sha256sum -c -
-tar -xzf r1-readers.tar.gz
-```
-
-Download the original CLIP visual checkpoint from the URL used by AnomalyCLIP. R1 verifies the SHA-256 of the visual checkpoint and of the selected reader file before loading.
-
-```sh
-mkdir -p weights
-curl --fail --location --output weights/ViT-L-14-336px.pt \
+tar -xzf r1-readers.tar.gz  # creates weights/visa.pt and weights/mvtec.pt
+curl -fL -o weights/ViT-L-14-336px.pt \
   https://openaipublic.azureedge.net/clip/models/3035c92b350959924f9f00213499208652fc7ea050643e8b385c2dac08641f02/ViT-L-14-336px.pt
-export R1_CLIP_WEIGHTS="$PWD/weights/ViT-L-14-336px.pt"
-python release/infer.py --source visa --output prediction.npz examples/texture.png
+
+cp .env.example .env
+# Edit the three paths if data/weights/outputs are stored elsewhere.
+source .env
+python scripts/check_setup.py
 ```
 
-`--source` names the **training** dataset. For a VisA target, select `mvtec`. For every other benchmark target, select `visa`. The example is a synthetic texture for checking the installation. The output NPZ has `files` in input order, `image` with shape `[N]`, and `pixel` with shape `[N,518,518]`. Higher probabilities indicate greater anomaly evidence. The heatmap uses the resized input coordinates.
+The three path settings are `FACETAD_DATA_ROOT`, `FACETAD_WEIGHTS_ROOT`, and `FACETAD_OUTPUT_ROOT`. The defaults are `data/`, `weights/`, and `outputs/`. `.env` is a shell file: explicitly source it; Python does not load it automatically. Keep it out of Git. Scientific settings and checkpoint hashes remain fixed in [configs/config.json](configs/config.json).
 
-## Evaluation
+## 3. Run a first prediction
 
-Create a UTF-8 JSON Lines manifest with one record per image. Paths are relative to the manifest, or may be absolute. An empty mask list represents a known empty foreground. For image-only targets (OCT17, BrainMR1 [V] and HIS), the mask field can be omitted.
+```bash
+python scripts/infer.py --source visa examples/texture.png
+# Real input:
+python scripts/infer.py --source visa --output "$FACETAD_OUTPUT_ROOT/example.npz" /path/to/image.png
+```
+
+The bundled texture is synthetic and checks installation only. Output contains `files`, image probabilities `[N]`, and pixel probability maps `[N,518,518]` in resized input coordinates. Larger values indicate more anomaly evidence.
+
+**`--source` is the training source:** use `mvtec` for a VisA target and `visa` for every other benchmark target. It is not the name of the input dataset.
+
+## 4. Evaluate and check results
+
+Obtain benchmark images/masks from their providers. For the two primary datasets, generate manifests automatically:
+
+```bash
+python scripts/prepare_manifest.py mvtec --root "$FACETAD_DATA_ROOT/mvtec"
+python scripts/prepare_manifest.py visa --root "$FACETAD_DATA_ROOT/visa"
+```
+
+The VisA command reads the official `split_csv/1cls.csv` test split. The commands check the expected 1,725/2,162 images and 15/12 categories and stop on a different split. They do not change or resplit data. Generated paths are absolute; these manifests are for raw-image evaluation, not historical replay ordering.
+
+For other targets, create one JSONL manifest under `$FACETAD_DATA_ROOT/manifests/`, with one line per image; see [the manifest example](configs/manifest.example.jsonl).
 
 ```json
-{"image":"images/001.png","category":"bottle","label":0,"masks":[]}
-{"image":"images/002.png","category":"bottle","label":1,"masks":["masks/002.png"]}
+{"image":"mvtec/bottle/test/good/000.png","category":"bottle","label":0,"masks":[]}
+{"image":"mvtec/bottle/test/broken_large/000.png","category":"bottle","label":1,"masks":["mvtec/bottle/ground_truth/broken_large/000_mask.png"]}
 ```
 
-```sh
-python release/evaluate.py mvtec --manifest data/mvtec.jsonl --output mvtec.json
+With `FACETAD_DATA_ROOT` set, relative image and mask paths are relative to **that root**, not the manifest directory. Absolute paths also work. Without this variable, the older manifest-relative convention is preserved. An empty mask list means known empty foreground; for image-only datasets, omit `masks`. Do not remove anomalous images merely because their masks are empty.
+
+```bash
+# Raw-image evaluation: no prediction caches required.
+python scripts/evaluate.py mvtec
+python scripts/evaluate.py visa
+# A custom manifest/output may be supplied explicitly:
+python scripts/evaluate.py mvtec --manifest /path/to/mvtec.jsonl --output "$FACETAD_OUTPUT_ROOT/mvtec.json"
+# All 19 targets, once their manifests are prepared:
+python scripts/evaluate_all.py
 ```
 
-The evaluator computes Image AUROC, Image AP, TPR at 5% FPR, Pixel AUROC, Pixel AP and AUPRO. JSON records per-category fractions and the mean across eligible categories in percent. Undefined metrics are JSON `null`. Dense evaluation stores one category's full-resolution maps in a temporary file; set `TMPDIR` to choose its location.
+Outputs contain per-class fractions and category-macro metrics in percent: Image AUROC/AP, TPR@5% FPR, Pixel AUROC/AP and AUPRO. Inapplicable metrics are `null`. Temporary full-resolution maps are stored one category at a time; set `TMPDIR` to a disk with sufficient space. `evaluate_all.py` also creates separate original/extension summaries using the appropriate valid denominators.
 
-For a bit-level comparison with the saved benchmark, an optional replay accepts the original three member-score files (`111.npz`, `222.npz`, `333.npz`). It verifies the files, manifest order, image bytes, labels and effective masks before computing metrics. The public code and reader archive support raw-image evaluation without these exports. Raw encoding and historical cached features can differ slightly due to batching and floating-point rounding.
+Compare raw-image evaluation with the published values above and the CSVs. Batching and historical feature quantization can cause small differences; an exact-match claim requires the same inputs and numerical path. **Optional historical replay is a different mode**, described in [evaluation details](docs/evaluation.md); it is not required for inference from raw images.
 
-```sh
-python release/evaluate.py mvtec --manifest data/mvtec.jsonl \
-  --member-scores data/mvtec_scores --output mvtec-replay.json
-python release/verify_tables.py mvtec-replay.json
-```
+## Protocol and scope
 
-## Protocol and coverage
+The fixed members use seeds 111/222/333 and epoch 15. VisA official test-only (2,162 labeled normal/abnormal images and masks) supervises all targets except VisA; VisA evaluation uses MVTec AD official test-only supervision (1,725 images). Target labels are used only for evaluation. Inputs are 518×518; CLIP ViT-L/14@336px uses DPAM layer 20 and layer-24 local tokens only. Calibration, color bandwidth and deployment coefficients are frozen. Probabilities/maps are averaged **before** computing ensemble metrics.
 
-Members use seeds 111, 222 and 333 and the fixed epoch-15 checkpoints. Supervision comes from normal and abnormal images with source masks in the official test split of the **other** dataset (2,162 VisA images or 1,725 MVTec AD images). Target labels are used for evaluation. Images are resized to 518×518. The frozen encoder uses DPAM layer 20 and a single 37×37 local grid at layer 24. Fusion and Lab bandwidth are fixed on the training source.
+The original 14 datasets provide 11 valid image and 11 valid pixel tasks. Five extensions yield totals of 14 image and 16 pixel tasks. Brain MRI [M] and Brain_AD duplicate the same 3,715 evaluation images and count once. Cross-paper baselines use their respective protocols; missing metrics are not zeros. See [evaluation details](docs/evaluation.md) and [third-party assets](THIRD_PARTY.md).
 
-The original 14-target protocol has 11 eligible classification datasets and 11 eligible localization datasets. Adding RSDD, Liver CT, Retina OCT, CVC-ColonDB and CVC-300 brings coverage to 14 classification and 16 localization datasets. Brain MRI [M] and Brain_AD share all 3,715 test images, labels and evaluation masks and count once. Published cross-method comparisons use heterogeneous protocols; the R1 CSV files contain the unrounded measurements.
+## Repository layout
 
-For non-default installations, `R1_CLIP_CODE` points to the upstream checkout, `R1_CLIP_WEIGHTS` to the CLIP checkpoint, `R1_WEIGHTS` to the directory containing `visa.pt` and `mvtec.pt`, and `R1_KERNELS` to the directory containing the compiled libraries. See [third-party software and assets](THIRD_PARTY.md).
+- `facetad/`: frozen model, preprocessing and exact evaluator.
+- `scripts/`: setup check, inference and evaluation commands.
+- `configs/`: unchanged scientific configuration, hashes and manifest example.
+- `kernels/`: CUDA operator sources; `results/`: published tables and verification records.
+- `release/`: compatibility commands for the original release; old `R1_*` path variables remain supported. Do not merge private experiment archives into a public checkout.
+
+Advanced path overrides are documented in [evaluation details](docs/evaluation.md). Weights, datasets and outputs are not tracked in Git.
+
+[Packaging regression checks and their scope](docs/reorganization-validation.md).

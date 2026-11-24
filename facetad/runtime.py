@@ -12,19 +12,14 @@ os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 import cv2
 import numpy as np
 import torch
-from reader import ReaderGate
+from .reader import ReaderGate
 from scipy.ndimage._filters import _gaussian_kernel1d
 from scipy.special import expit, logit
 from torch.nn import functional as F
 from torchvision import transforms as T
 
-PROJECT = Path(__file__).resolve().parents[1]
-WEIGHTS = Path(os.environ.get("R1_WEIGHTS", PROJECT / "weights")).expanduser()
-KERNELS = Path(os.environ.get("R1_KERNELS", PROJECT / "build")).expanduser()
-VISUAL = Path(
-    os.environ.get("R1_CLIP_WEIGHTS", Path.home() / ".cache/clip/ViT-L-14-336px.pt")
-).expanduser()
-CONFIG = json.loads(Path(__file__).with_name("config.json").read_text())
+from .paths import PROJECT, WEIGHTS, KERNELS, VISUAL, CLIP_CODE
+CONFIG = json.loads((PROJECT / "configs/config.json").read_text())
 
 PARAMS = {
     "Prompt_length": 12,
@@ -52,9 +47,7 @@ def sha(path):
 
 
 def clip():
-    upstream = Path(
-        os.getenv("R1_CLIP_CODE", PROJECT / "third_party/AnomalyCLIP")
-    ).expanduser()
+    upstream = CLIP_CODE
     if not (upstream / "AnomalyCLIP_lib").is_dir():
         raise FileNotFoundError(
             f"Install the pinned AnomalyCLIP source at {upstream} or set R1_CLIP_CODE"

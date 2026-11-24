@@ -1,0 +1,2 @@
+{"image":"mvtec/bottle/test/good/000.png","category":"bottle","label":0,"masks":[]}
+{"image":"mvtec/bottle/test/broken_large/000.png","category":"bottle","label":1,"masks":["mvtec/bottle/ground_truth/broken_large/000_mask.png"]}

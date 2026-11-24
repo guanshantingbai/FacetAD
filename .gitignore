@@ -11,3 +11,6 @@ data/
 outputs/
 *.tar.gz
 .ruff_cache/
+.env
+.env.*
+!.env.example
