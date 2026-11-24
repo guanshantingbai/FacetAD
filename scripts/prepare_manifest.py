@@ -34,8 +34,10 @@ else:
         mask_col='mask' if 'mask' in fields else 'mask_path'
         if not {split,image_col,mask_col,'object','label'}.issubset(fields):
             raise ValueError('Unrecognized VisA split CSV columns')
-        for row in reader:
-            if row[split]!='test': continue
+        test_rows=[row for row in reader if row[split]=='test']
+        if len(test_rows)!=2162:
+            sys.exit(f'Unexpected VisA test split: {len(test_rows)} images; expected 2162. No manifest written.')
+        for row in test_rows:
             if row['label'] not in ('normal','anomaly'): raise ValueError(row['label'])
             masks=[root/row[mask_col]] if row[mask_col].strip() else []
             records.append(record(root/row[image_col],row['object'],int(row['label']=='anomaly'),masks))
