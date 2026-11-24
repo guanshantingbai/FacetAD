@@ -12,11 +12,9 @@ FacetAD (called **R1** in the original release) detects and localizes anomalies 
 
 ## 1. Install
 
-Use Linux, Python 3.11, an NVIDIA GPU and a CUDA toolkit containing `nvcc`. The reference hardware is an RTX 3090 (24 GB), with CUDA 12.8 and PyTorch 2.11.0. Run commands from the repository root.
+Use Linux, Python 3.11, an NVIDIA GPU and a CUDA toolkit containing `nvcc`. The reference hardware is an RTX 3090 (24 GB), with CUDA 12.8 and PyTorch 2.11.0. Download and extract the code archive from the anonymous review page, then open a terminal in the extracted repository root. Run all commands below from that directory.
 
 ```bash
-git clone https://github.com/guanshantingbai/FacetAD.git
-cd FacetAD
 python3.11 -m venv .venv
 source .venv/bin/activate
 python -m pip install --index-url https://download.pytorch.org/whl/cu128 torch==2.11.0 torchvision==0.26.0
@@ -29,10 +27,11 @@ make kernels CUDA_ARCH=sm_86
 
 For another GPU, change `CUDA_ARCH` to its compute capability. If needed, pass `NVCC=/path/to/nvcc` to `make`. The two evaluation/inference operators are built from `kernels/`; no server-specific binaries are required.
 
-## 2. Download weights and set paths
+## 2. Prepare weights and set paths
+
+The reader weights are required and are not included in the source-only archive. Place `r1-readers.tar.gz` in the repository root before running the commands below. For anonymous review, this archive must be distributed through a separate anonymous attachment or download; no author-identifying hosting link is embedded here. A code-only mirror is not sufficient to run inference without these weights.
 
 ```bash
-curl -fL -o r1-readers.tar.gz https://github.com/guanshantingbai/FacetAD/releases/download/v1.0.0/r1-readers.tar.gz
 echo 'c97308b2af55e41736a0ab167a206d709cd04df96e5760e25af4cf66770eab2e  r1-readers.tar.gz' | sha256sum -c -
 tar -xzf r1-readers.tar.gz  # creates weights/visa.pt and weights/mvtec.pt
 curl -fL -o weights/ViT-L-14-336px.pt \
